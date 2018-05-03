@@ -15,6 +15,17 @@ app.use(express.static(publicPath));
 //popular event: connection
 io.on('connection', (socket) => {
     console.log('New User connected');
+
+    socket.emit('newMessage', {
+      from: 'mike@example.com',
+      text: 'Hey what is going?',
+      createdAt: 123
+    });
+
+    socket.on('createMessage', (newMsg) => {
+      console.log('createMessage', newMsg);
+    });
+
     socket.on('disconnect', ()=> {
       console.log('Client has disconnected');
     });
