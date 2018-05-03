@@ -20,12 +20,12 @@ io.on('connection', (socket) => {
     socket.emit('newMessage',generateMessage('Admin', 'Welcome to Chat App'));
     socket.broadcast.emit('newMessage', generateMessage('Admin', 'New User joined'));
 
-    socket.on('createMessage', (message) => {
+    socket.on('createMessage', (message, callback) => {
       console.log('createMessage', message);
 
-      // //emit to all io opened
+      //emit to all io opened
       io.emit('newMessage', generateMessage(message.from, message.text));
-
+      callback('This is from the server.');
       // socket.broadcast.emit('newMessage', {
       //   from: message.from,
       //   text: message.text,
